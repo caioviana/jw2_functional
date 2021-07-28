@@ -70,7 +70,7 @@ public class QA_Demo {
         Thread.sleep(1000);
         //navegador.navigate().refresh();
 
-        ////////APPLICATIONS INSTANCES/////////
+        ////////APPLICATIONS INSTANCES//////////
         System.out.println("MASTER");
         System.out.println("Adicionar Applications Instances");
 

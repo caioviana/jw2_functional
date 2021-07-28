@@ -89,7 +89,7 @@ public class TasksTest {
         Thread.sleep(1000);
         System.out.println("<OK>");
 
-        ////////TENANTS////////
+        ////////TENANTS/////////
 
         System.out.println("Incluir Tenants");
         navegador.findElement(xpath("//div[@class='v-list-item__title'][contains(.,'Core Settings')]")).click();
