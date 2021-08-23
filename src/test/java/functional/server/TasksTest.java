@@ -3,6 +3,7 @@ package functional.server;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -900,5 +901,383 @@ public class TasksTest {
         System.out.println("Logout");
         navegador.quit();
     }
-}
 
+    @Test
+    public void QA___CADASTRO_CDP() throws InterruptedException {
+
+        navegador.get("http://qa-webapp.vati.rocks/");
+        String actualTitle = navegador.getTitle();
+        String expectedTitle = "jw2_web_2app";
+        //Thread.sleep(500);
+
+        navegador.findElement(By.xpath("//input[contains(@type,'email')]")).sendKeys("admin@email.com");
+        navegador.findElement(By.xpath("//input[contains(@type,'password')]")).sendKeys("admin");
+        //Thread.sleep(500);
+        navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Login')]")).click();
+        //wait = new WebDriverWait(navegador, 15);
+        //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='v-btn__content'][contains(.,'Logout')]")));
+
+        String textElement = navegador.findElement(By.className("v-main")).getText();
+        //assertEquals("Home", textElement);
+        Thread.sleep(1000);
+        //navegador.navigate().refresh();
+        System.out.println("========== ST - Acessando CDP ==========");
+        Thread.sleep(1000);
+        navegador.findElement(By.xpath("//div[text()='CDP']")).click();
+        Thread.sleep(1000);
+        navegador.findElement(By.xpath("//span[text()=' CDP Settings ']")).click();
+        System.out.println("========== ST - Listar |Customer Properties|Unomi Config|Unomi Console|Attribute Mapping|Profile View ==========");
+        wait = new WebDriverWait(navegador, 29);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Customer Properties']"))).getText();
+        textElement = navegador.findElement(By.xpath("//div[text()='Customer Properties']")).getText();
+        assertEquals("Customer Properties", textElement);
+        Thread.sleep(500);
+        wait = new WebDriverWait(navegador, 29);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Unomi Config']"))).getText();
+        textElement = navegador.findElement(By.xpath("//div[text()='Unomi Config']")).getText();
+        assertEquals("Unomi Config", textElement);
+        Thread.sleep(500);
+        wait = new WebDriverWait(navegador, 29);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Unomi Console']"))).getText();
+        textElement = navegador.findElement(By.xpath("//div[text()='Unomi Console']")).getText();
+        assertEquals("Unomi Console", textElement);
+        Thread.sleep(500);
+
+        wait = new WebDriverWait(navegador, 29);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Attribute Mapping']"))).getText();
+        textElement = navegador.findElement(By.xpath("//div[text()='Attribute Mapping']")).getText();
+        assertEquals("Attribute Mapping", textElement);
+        Thread.sleep(500);
+
+        wait = new WebDriverWait(navegador, 29);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Profile View']"))).getText();
+        textElement = navegador.findElement(By.xpath("//div[text()='Profile View']")).getText();
+        assertEquals("Profile View", textElement);
+        Thread.sleep(500);
+
+        System.out.println("> OK ");
+
+        //////CUSTOMER PROPERTIES///////
+
+        System.out.println("========== ST - Cadastrar Customer Propertis ==========");
+        navegador.findElement(By.xpath("//div[text()='Customer Properties']")).click();
+        Thread.sleep(500);
+        navegador.findElement(By.xpath("//span[text()=' Create New ']")).click();
+        Thread.sleep(500);
+        navegador.findElement(By.xpath("//span[text()=' Save ']")).click();
+        Thread.sleep(500);
+        navegador.findElement(By.xpath("(//label[text()='Title']/following::input)[1]")).sendKeys("zare_sports_website");
+        Thread.sleep(500);
+        navegador.findElement(By.xpath("(//div[@class='v-select__selections'])[2]")).click();
+        navegador.findElement(By.xpath("//div[text()='Tenant']")).click();
+        navegador.findElement(By.xpath("(//div[@class='v-select__selections'])[3]")).click();
+        navegador.findElement(By.xpath("//div[text()='Website']")).click();
+        navegador.findElement(By.xpath("//span[text()=' Save ']")).click();
+
+        wait = new WebDriverWait(navegador, 29);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
+        textElement = navegador.findElement(className("v-snack__content")).getText();
+        Assert.assertEquals("Customer Property created", textElement);
+        navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
+
+        wait = new WebDriverWait(navegador, 29);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//td[text()='zare_sports_website'])[1]"))).getText();
+        textElement = navegador.findElement(By.xpath("(//td[text()='zare_sports_website'])[1]")).getText();
+        assertEquals("zare_sports_website", textElement);
+        Thread.sleep(500);
+        navegador.findElement(By.xpath("//a[@class='v-breadcrumbs__item']")).click();
+        System.out.println("> OK ");
+
+        //////UNOMI CONFIG/////
+
+        System.out.println("========== ST - Cadastrar Unomi Config ==========");
+        navegador.findElement(By.xpath("//div[text()='Unomi Config']")).click();
+        Thread.sleep(500);
+        navegador.findElement(By.xpath("//span[text()=' Create New ']")).click();
+        Thread.sleep(500);
+        navegador.findElement(By.xpath("//span[text()=' Save ']")).click();
+        Thread.sleep(500);
+        navegador.findElement(By.xpath("(//label[text()='Unomi Id']/following::input)[1]")).sendKeys("copy property to profile");
+        Thread.sleep(500);
+        navegador.findElement(By.xpath("(//label[text()='Description']/following::input)[1]")).sendKeys("copy every event property to profile");
+        Thread.sleep(500);
+        navegador.findElement(By.xpath("//input[@type='number']")).sendKeys("1");
+        Thread.sleep(500);
+        navegador.findElement(By.tagName("textarea")).sendKeys("{\n" +
+                "  \"metadata\": {\n" +
+                "    \"id\": \"CopyEventViewToProfile\",\n" +
+                "    \"name\": \"CopyEventToProfileView\",\n" +
+                "    \"description\": \"Copy every event properties to profile properties\",\n" +
+                "    \"scope\": \"systemscope\"\n" +
+                "  },\n" +
+                "  \"condition\": {\n" +
+                "      \"type\": \"eventTypeCondition\",\n" +
+                "      \"parameterValues\": {\n" +
+                "        \"eventTypeId\" : \"view\"\n" +
+                "      }\n" +
+                "  },\n" +
+                "  \"actions\": [\n" +
+                "    {\n" +
+                "      \"type\": \"allEventToProfilePropertiesAction\"\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}");
+
+        Thread.sleep(1000);
+
+
+        ((JavascriptExecutor) navegador)
+                .executeScript("window.scrollTo(0, document.body.scrollHeight)");
+
+
+        Thread.sleep(1000);
+        navegador.findElement(By.className("v-card__actions")).click();
+
+        Thread.sleep(500);
+
+        navegador.findElement(By.xpath("(//div[@class='v-input__icon v-input__icon--append']//i)[2]")).click();
+        //navegador.findElement(By.xpath("(//div[text()='Tenant'])[2]")).click();
+        //navegador.findElement(By.xpath("(//div[text()='Tenant'])[2]")).click();
+        Thread.sleep(500);
+
+        navegador.findElement(By.className("v-card__actions")).click();
+        navegador.findElement(By.xpath("(//div[contains(@class,'v-select__selections')])[2]")).click();
+        navegador.findElement(By.xpath("//div[@class='v-list-item__title'][contains(.,'Tenant')]")).click();
+        Thread.sleep(500);
+
+        navegador.findElement(By.className("v-card__actions")).click();
+        navegador.findElement(By.xpath("(//div[contains(@class,'v-select__selections')])[3]")).click();
+        navegador.findElement(By.xpath("//div[@class='v-list-item__title'][contains(.,'Rule')]")).click();
+        Thread.sleep(500);
+
+        navegador.findElement(By.className("v-card__actions")).click();
+        navegador.findElement(By.xpath("(//div[contains(@class,'v-select__selections')])[4]")).click();
+        navegador.findElement(By.xpath("//div[@class='v-list-item__title'][contains(.,'zare_sports_website')]")).click();
+        Thread.sleep(500);
+
+        navegador.findElement(By.xpath("//span[text()=' Save ']")).click();
+        Thread.sleep(500);
+
+        navegador.findElement(By.xpath("//td[text()='copy property to profile']")).click();
+        Thread.sleep(500);
+
+        wait = new WebDriverWait(navegador, 29);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
+        textElement = navegador.findElement(className("v-snack__content")).getText();
+        Assert.assertEquals("Customer Property created", textElement);
+        navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
+        Thread.sleep(500);
+
+        navegador.findElement(By.xpath("//td[text()='copy property to profile']")).click();
+        Thread.sleep(500);
+
+        wait = new WebDriverWait(navegador, 29);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[text()='copy property to profile']"))).getText();
+        textElement = navegador.findElement(By.xpath("//td[text()='copy property to profile']")).getText();
+        assertEquals("copy property to profile", textElement);
+        Thread.sleep(500);
+        navegador.findElement(By.xpath("//a[@class='v-breadcrumbs__item']")).click();
+        System.out.println("> OK ");
+
+
+        //////UNOMI CONSOLE/////
+
+        System.out.println("========== ST - Acessando Unomi Console ==========");
+        navegador.findElement(By.xpath("//div[text()='Unomi Console']")).click();
+        Thread.sleep(500);
+        System.out.println("> OK ");
+        Thread.sleep(1000);
+        System.out.println("========== ST - Executar comando profile-list no Unomi Console ==========");
+        navegador.findElement(By.tagName("input")).sendKeys("profile-list");
+        Thread.sleep(500);
+
+        navegador.findElement(By.xpath("(//span[@class='v-btn__content']//i)[3]")).click();
+        Thread.sleep(2000);
+        System.out.println("> OK ");
+
+        ((JavascriptExecutor) navegador)
+                .executeScript("window.scrollTo(0, document.body.scrollHeight)");
+        Thread.sleep(1000);
+
+        WebElement element = navegador.findElement(By.xpath("//a[@class='v-breadcrumbs__item']"));
+        Actions actions = new Actions(navegador);
+        actions.moveToElement(element);
+        actions.perform();
+
+        Thread.sleep(1000);
+        navegador.findElement(By.xpath("//a[@class='v-breadcrumbs__item']")).click();
+
+        //////ATTRIBUTE MAPPING /////
+
+        System.out.println("========== ST - Cadastrar Attribute Mapping ==========");
+        navegador.findElement(By.xpath("//div[text()='Attribute Mapping']")).click();
+        navegador.findElement(By.xpath("//span[text()=' Create New ']")).click();
+        Thread.sleep(500);
+        navegador.findElement(By.xpath("//span[text()=' Save ']")).click();
+
+        navegador.findElement(By.xpath("(//label[text()='Customer Property Attribute']/following::input)[1]")).sendKeys("firstName");
+        Thread.sleep(500);
+
+        navegador.findElement(By.xpath("(//label[text()='Media Attribute']/following::input)[1]")).sendKeys("name");
+        Thread.sleep(500);
+
+        navegador.findElement(By.xpath("(//div[@class='v-select__selections'])[2]")).click();
+        navegador.findElement(By.xpath("//div[text()='Google']")).click();
+        Thread.sleep(500);
+
+        navegador.findElement(By.xpath("(//div[@class='v-select__selections'])[3]")).click();
+        navegador.findElement(By.xpath("//div[text()='Tenant']")).click();
+        Thread.sleep(500);
+
+        navegador.findElement(By.xpath("(//div[@class='v-select__selections'])[4]")).click();
+        navegador.findElement(By.xpath("//div[text()='zare_sports_website']")).click();
+        Thread.sleep(500);
+
+        navegador.findElement(By.xpath("//span[text()=' Save ']")).click();
+
+        wait = new WebDriverWait(navegador, 29);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
+        textElement = navegador.findElement(className("v-snack__content")).getText();
+        Assert.assertEquals("Attribute Mapping created", textElement);
+        navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
+        Thread.sleep(500);
+
+        wait = new WebDriverWait(navegador, 29);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[text()='firstName']"))).getText();
+        textElement = navegador.findElement(By.xpath("//td[text()='firstName']")).getText();
+        assertEquals("firstName", textElement);
+        Thread.sleep(500);
+        navegador.findElement(By.xpath("//a[@class='v-breadcrumbs__item']")).click();
+        Thread.sleep(500);
+        System.out.println("> OK ");
+
+        //////PROFILE VIEW /////
+
+        System.out.println("========== ST - Cadastrar Profile View ==========");
+        navegador.findElement(By.xpath("//div[text()='Profile View']")).click();
+        navegador.findElement(By.xpath("//span[text()=' Create New ']")).click();
+        Thread.sleep(500);
+        navegador.findElement(By.xpath("//span[text()=' Save ']")).click();
+        Thread.sleep(500);
+
+        navegador.findElement(By.xpath("(//label[text()='Title']/following::input)[1]")).sendKeys("All");
+        Thread.sleep(500);
+
+        //navegador.findElement(By.xpath("(//label[text()='Key']/following::input)[1]")).sendKeys("all");
+        //Thread.sleep(500);
+
+        navegador.findElement(By.xpath("(//label[text()='Description']/following::input)[1]")).sendKeys("View all profiles");
+        Thread.sleep(500);
+
+        ((JavascriptExecutor) navegador)
+                .executeScript("window.scrollTo(0, document.body.scrollHeight)");
+        Thread.sleep(1000);
+
+        element = navegador.findElement(By.xpath("//span[text()=' Save ']"));
+        actions = new Actions(navegador);
+        actions.moveToElement(element);
+        actions.perform();
+
+        navegador.findElement(By.xpath("//textarea[@rows='5']")).sendKeys("{\n" +
+                "  \"offset\": 0,\n" +
+                "  \"limit\": 1000,\n" +
+                "  \"sortby\": \"properties.lastName:asc,properties.firstName:desc\",\n" +
+                "  \"condition\": {\n" +
+                "    \"type\": \"booleanCondition\",\n" +
+                "    \"parameterValues\": {\n" +
+                "      \"operator\": \"or\",\n" +
+                "      \"subConditions\": [\n" +
+                "        {\n" +
+                "          \"type\": \"profilePropertyCondition\",\n" +
+                "          \"parameterValues\": {\n" +
+                "            \"propertyName\": \"properties.firstVisit\",\n" +
+                "            \"comparisonOperator\": \"exists\"\n" +
+                "          }\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"type\": \"profilePropertyCondition\",\n" +
+                "          \"parameterValues\": {\n" +
+                "            \"propertyName\": \"properties.lastVisit\",\n" +
+                "            \"comparisonOperator\": \"exists\"\n" +
+                "          }\n" +
+                "        }\n" +
+                "      ]\n" +
+                "    }\n" +
+                "  }\n" +
+                "}");
+        Thread.sleep(500);
+
+        navegador.findElement(By.xpath("(//div[@class='v-select__selections'])[2]")).click();
+        navegador.findElement(By.xpath("//div[text()='Tenant']")).click();
+        Thread.sleep(500);
+
+        navegador.findElement(By.xpath("(//div[@class='v-select__selections'])[3]")).click();
+        navegador.findElement(By.xpath("//div[text()='zare_sports_website']")).click();
+        Thread.sleep(500);
+
+        navegador.findElement(By.xpath("(//div[@class='v-select__selections'])[4]")).click();
+        navegador.findElement(By.xpath("//div[text()='Atendimento']")).click();
+        Thread.sleep(500);
+
+
+        //navegador.findElement(By.className("v-card__actions")).click();
+        //Thread.sleep(500);
+
+        navegador.findElement(By.xpath("//span[text()=' Save ']")).click();
+
+        wait = new WebDriverWait(navegador, 29);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
+        textElement = navegador.findElement(className("v-snack__content")).getText();
+        Assert.assertEquals("Profile View created", textElement);
+        navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
+        Thread.sleep(500);
+        System.out.println("> OK ");
+
+        //navegador.findElement(By.xpath("//span[text()=' zare_sports_website ']")).getText();
+
+        wait = new WebDriverWait(navegador, 29);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()=' zare_sports_website ']"))).getText();
+        textElement = navegador.findElement(By.xpath("//span[text()=' zare_sports_website ']")).getText();
+        assertEquals("zare_sports_website", textElement);
+        Thread.sleep(500);
+
+
+        navegador.findElement(By.xpath("//div[text()='CDP']")).click();
+        Thread.sleep(500);
+        //navegador.findElement(By.xpath("//span[text()=' CDP Settings ']")).click();
+
+        navegador.findElement(By.xpath("//button[contains(@class,'v-icon notranslate')]")).click();
+        Thread.sleep(500);
+
+        System.out.println("========== ST - Realizar Download | Profile View Export ==========");
+        navegador.findElement(By.xpath("//span[text()=' download ']")).click();
+        Thread.sleep(500);
+        System.out.println("> OK ");
+
+        navegador.findElement(By.xpath("//div[text()='CDP']")).click();
+        Thread.sleep(500);
+
+        navegador.findElement(By.xpath("//span[text()=' CDP Settings ']")).click();
+        Thread.sleep(500);
+
+        navegador.findElement(By.xpath("//div[text()='Customer Properties']")).click();
+        Thread.sleep(500);
+
+        navegador.findElement(By.xpath("(//button[contains(@class,'v-icon notranslate')])[2]")).click();
+        Thread.sleep(500);
+
+        navegador.findElement(By.xpath("//div[@class='v-card__text']//code[1]")).click();
+        Thread.sleep(500);
+        System.out.println("========== ST - Visualizar informacoes cadastradas no Customer Propertis |Snippet ==========");
+
+        navegador.findElement(By.xpath("(//span[text()=' Close '])[2]")).click();
+        Thread.sleep(500);
+        System.out.println("> OK ");
+        Thread.sleep(500);
+
+        navegador.findElement(By.xpath("(//div[@class='v-responsive__content'])[2]")).click();
+        Thread.sleep(1000);
+        navegador.findElement(By.xpath("//div[text()='Logout']")).click();
+        System.out.println("========== ST - Logout ==========");
+    }
+}
