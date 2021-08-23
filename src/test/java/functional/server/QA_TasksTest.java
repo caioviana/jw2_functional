@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import static junit.framework.TestCase.assertEquals;
@@ -17,15 +18,17 @@ import static org.openqa.selenium.By.className;
 import static org.openqa.selenium.By.xpath;
 
 @FixMethodOrder(MethodSorters.JVM)
-public class TasksTest {
 
+public class QA_TasksTest {
 
     private WebDriver navegador;
     private Object MalformedURLException;
     private String currentPassword = "admin";
     private WebDriverWait wait;
     private Dimension dimension;
+    private ArrayList<Object> tabs;
     private String textElement;
+
 
     @Before
     public void Setup() throws java.net.MalformedURLException {
@@ -37,8 +40,8 @@ public class TasksTest {
         navegador.manage().window().setSize(dimension);
 
         navegador.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-        navegador.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
-        navegador.manage().timeouts().setScriptTimeout(60, TimeUnit.SECONDS);
+        //navegador.manage().timeouts().pageLoadTimeout(90, TimeUnit.SECONDS);
+        //navegador.manage().timeouts().setScriptTimeout(90, TimeUnit.SECONDS);
         WebDriverWait wait = null;
     }
 
@@ -49,7 +52,7 @@ public class TasksTest {
     }
 
     @Test
-    public void QA___MASTER_FULL() throws InterruptedException {
+    public void QA___CADASTRO_MASTER_FULL() throws InterruptedException {
 
         navegador.get("http://qa-webapp.vati.rocks/");
         String actualTitle = navegador.getTitle();
@@ -67,8 +70,8 @@ public class TasksTest {
         //navegador.navigate().refresh();
 
         ////////APPLICATIONS INSTANCES///////////
-        System.out.println("MASTER");
-        System.out.println("Adicionar Applications Instances");
+        System.out.println("=== QA - Acessando como MASTER ===");
+        System.out.println("========== QA - Adicionar Applications Instances ==========");
 
         navegador.findElement(xpath("//div[@class='v-list-item__title'][contains(.,'Core Settings')]")).click();
         Thread.sleep(500);
@@ -82,17 +85,17 @@ public class TasksTest {
         navegador.findElement(xpath("//div[text()='Core']")).click();
         navegador.findElement(xpath("//span[text()=' Save ']")).click();
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
         textElement = navegador.findElement(className("v-snack__content")).getText();
         Assert.assertEquals("ApplicationInstance created", textElement);
         navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
         Thread.sleep(1000);
-        System.out.println("<OK>");
+        System.out.println("> OK ");
 
-        ////////TENANTS/////////
+        ////////TENANTS////////
 
-        System.out.println("Incluir Tenants");
+        System.out.println("========== QA - Incluir Tenants ==========");
         navegador.findElement(xpath("//div[@class='v-list-item__title'][contains(.,'Core Settings')]")).click();
         Thread.sleep(500);
         navegador.findElement(xpath("//div[@class='v-list-item__title'][contains(.,'Tenants')]")).click();
@@ -111,29 +114,29 @@ public class TasksTest {
         //navegador.findElement(xpath("//div[@class='v-list-item__title'][contains(.,'Contents')]")).click();
         navegador.findElement(xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
         textElement = navegador.findElement(className("v-snack__content")).getText();
         assertEquals("Tenant created", textElement);
         navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
         Thread.sleep(1000);
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[text()='Vati']")));
         textElement = navegador.findElement(By.xpath("//td[text()='Vati']")).getText();
         assertEquals("Vati", textElement);
-        System.out.println("<OK>");
+        System.out.println("> OK ");
 
         /////ADD NEW_USER_ADMIN_TENANTS
 
-        System.out.println("Vincular usuário ao Tenant");
+        System.out.println("========== QA - Vincular usuário ao Tenant ==========");
         navegador.findElement(By.xpath("(//button[contains(@class,'v-icon notranslate')])[4]")).click();
         navegador.findElement(By.xpath("//span[text()=' Create Users ']")).click();
 
         navegador.findElement(xpath("//textarea[contains(@autocomplete,'email')]")).sendKeys("senelinum@protonmail.com");
         navegador.findElement(xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
         textElement = navegador.findElement(className("v-snack__content")).getText();
         Assert.assertEquals("User(s) added", textElement);
@@ -141,7 +144,7 @@ public class TasksTest {
         navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
         Thread.sleep(1000);
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//td[text()='senelinum@protonmail.com']"))).click();
         textElement = navegador.findElement(By.xpath("//td[text()='senelinum@protonmail.com']")).getText();
         assertEquals("senelinum@protonmail.com", textElement);
@@ -152,7 +155,7 @@ public class TasksTest {
         navegador.findElement(xpath("//textarea[contains(@autocomplete,'email')]")).sendKeys("senelinum2@protonmail.com");
         navegador.findElement(xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
         textElement = navegador.findElement(className("v-snack__content")).getText();
         //Assert.assertEquals("Access Denied.", textElement);
@@ -160,7 +163,10 @@ public class TasksTest {
         navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
 
  */
-        Thread.sleep(26000);
+        Thread.sleep(15000);
+        System.out.println("> OK ");
+
+        Thread.sleep(1000);
 /*
         Thread.sleep(3000);
 
@@ -169,7 +175,7 @@ public class TasksTest {
         navegador.findElement(xpath("//textarea[contains(@autocomplete,'email')]")).sendKeys("senelinum2@protonmail.com");
         navegador.findElement(xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
         textElement = navegador.findElement(className("v-snack__content")).getText();
         //Assert.assertEquals("Access Denied.", textElement);
@@ -177,20 +183,19 @@ public class TasksTest {
         navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
 
  */
-        Thread.sleep(1000);
-        System.out.println("<OK>");
 
-        navegador.findElement(xpath("(//div[@class='v-responsive__content'])[2]")).click();
-        Thread.sleep(1000);
-        navegador.findElement(xpath("//div[text()='Logout']")).click();
+        //navegador.findElement(By.xpath("(//div[@class='v-responsive__content'])[2]")).click();
+        //Thread.sleep(1000);
+        //navegador.findElement(By.xpath("//div[text()='Logout']")).click();
+
     }
 
 
     @Test
-    public void QA___ACESSAR_EMAIL() throws InterruptedException {
+    public void QA___RESGATAR_SENHA_ACESSAR_EMAIL() throws InterruptedException {
         //////_ACESSAR_EMAIL_RESGATAR_SENHA_DE_ACESSO////////
 
-/*        System.out.println("Acessar email resgatar senha enviada");
+/*        System.out.println("========== QA - Acessar email resgatar senha enviada ==========");
         ((JavascriptExecutor) navegador).executeScript("window.open()");
         ArrayList<String> tabs = new ArrayList<String>(navegador.getWindowHandles());
         //navegador.switchTo().window(tabs.get(1));
@@ -207,7 +212,7 @@ public class TasksTest {
         navegador.findElement(By.xpath("//button[@type='submit']")).click();
         //navegador.findElement(By.xpath("//button[contains(.,'Iniciar')]")).click();
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         navegador.findElement(By.xpath("(//span[contains(@class,'flex-item-fluid text-ellipsis')])[1]")).click();
         //navegador.findElement(By.xpath("//span[@class='flex-item-fluid text-ellipsis max-w100'][contains(.,'Caixa de entrada')]")).click();
         navegador.findElement(By.xpath("//span[@title='JAM 2 user invite']")).click();
@@ -220,28 +225,51 @@ public class TasksTest {
         //navegador.switchTo().window(tabs.get(0));
         navegador.get("http://qa-webapp.vati.rocks/");
 
-        System.out.println("<OK>");
+        System.out.println("> OK ");
         Thread.sleep(2000);
-        System.out.println("Login com senha recebida");
+        System.out.println("========== QA - Login com senha recebida ==========");
 
         navegador.findElement(By.xpath("//input[contains(@type,'email')]")).sendKeys("senelinum@protonmail.com");
         navegador.findElement(By.xpath("//input[contains(@type,'password')]")).sendKeys(currentPassword);
         Thread.sleep(2000);
 
         navegador.findElement(By.xpath("//span[text()=' Login ']")).click();
-        System.out.println("<OK>");
+        System.out.println("> OK ");
         Thread.sleep(1000);
+
+/*
+        /// ALTERACAO DE SENHA MANUAL///
+
+        System.out.println("========== QA - Alterar a senha manualmente pela aplicacao ==========");
+        navegador.findElement(By.xpath("//span[text()='s']")).click();
+        Thread.sleep(1000);
+        navegador.findElement(By.xpath("//div[text()='Change password']")).click();
+        Thread.sleep(1000);
+        navegador.findElement(By.xpath("(//input[@type='password'])[1]")).sendKeys("1234");
+        Thread.sleep(1000);
+        navegador.findElement(By.xpath("(//input[@type='password'])[2]")).sendKeys("1234");
+        Thread.sleep(2000);
+        navegador.findElement(By.xpath("//span[text()=' Save ']")).click();
+        Thread.sleep(3000);
+        navegador.findElement(xpath("//div[text()='Logout']")).click();
+
+
+ */
+
+
+        ///TROCA DE SENHA AUTOMATICA
+
         navegador.findElement(xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
         //navegador.findElement(By.xpath("//span[text()='Save']")).click();
 
-        System.out.println("Cadastrar senha errada, validacao campos");
+        System.out.println("========== QA - Cadastrar senha errada, validacao campos ==========");
         navegador.findElement(By.xpath("(//input[@type='password'])[1]")).sendKeys("1234");
         navegador.findElement(By.xpath("(//input[@type='password'])[2]")).sendKeys("5678");
         navegador.findElement(By.xpath("(//span[contains(.,'Save')])[2]")).click();
         Thread.sleep(1000);
-        System.out.println("<OK>");
+        System.out.println("> OK ");
 
-        System.out.println("Cadastrar senha correta, 1234");
+        System.out.println("========== QA - Cadastrar senha correta, 1234 ==========");
         navegador.findElement(By.xpath("(//input[@type='password'])[1]")).sendKeys(Keys.chord(Keys.CONTROL, "a"));
         //navegador.findElement(By.xpath("(//input[@type='password'])[1]")).sendKeys(Keys.chord(Keys.BACK_SPACE));
         navegador.findElement(By.xpath("(//input[@type='password'])[1]")).sendKeys("1234");
@@ -249,10 +277,12 @@ public class TasksTest {
         navegador.findElement(By.xpath("(//input[@type='password'])[2]")).sendKeys(Keys.chord(Keys.CONTROL, "a"));
         //navegador.findElement(By.xpath("(//input[@type='password'])[2]")).sendKeys(Keys.chord(Keys.BACK_SPACE));
         navegador.findElement(By.xpath("(//input[@type='password'])[2]")).sendKeys("1234");
-        System.out.println("<OK>");
+        System.out.println("> OK ");
 
         Thread.sleep(1000);
         navegador.findElement(By.xpath("(//span[contains(.,'Save')])[2]")).click();
+
+
         Thread.sleep(3000);
 
         navegador.findElement(By.xpath("//span[text()='s']")).click();
@@ -262,15 +292,16 @@ public class TasksTest {
         navegador.findElement(xpath("//div[text()='Logout']")).click();
         Thread.sleep(1000);
 
-        System.out.println("Login com senha alterada");
+
+        System.out.println("========== QA - Login com senha alterada ==========");
         navegador.findElement(xpath("//input[contains(@type,'email')]")).sendKeys("senelinum@protonmail.com");
         navegador.findElement(xpath("//input[contains(@type,'password')]")).sendKeys("1234");
         Thread.sleep(1000);
         //navegador.navigate().refresh();
-        System.out.println("<OK>");
+        System.out.println("> OK ");
         Thread.sleep(2000);
 
-        System.out.println("Clicando em Core Settings, deverá informar os iténs |Tenants|Companies|Groups|Users ");
+        System.out.println("========== QA - Clicando em Core Settings, deverá informar os iténs |Tenants|Companies|Groups|Users ========== ");
         navegador.findElement(xpath("//span[@class='v-btn__content'][contains(.,'Login')]")).click();
         Thread.sleep(1000);
 
@@ -282,7 +313,7 @@ public class TasksTest {
         /////INSERT_USER_ADMIN_IN_TENANT_VATI
 
         Thread.sleep(2000);
-        System.out.println("Adicionar usuário admin@email.com ao Tenant VATI");
+        System.out.println("========== QA - Adicionar usuário admin@email.com ao Tenant VATI ==========");
         Thread.sleep(1000);
 
         WebDriverWait wait = new WebDriverWait(navegador, 10);
@@ -295,57 +326,56 @@ public class TasksTest {
         //navegador.findElement(By.xpath("//div[@class='v-list-item__title'][contains(.,'Core Settings')]")).click();
         //navegador.findElement(By.xpath("//div[text()='Core Settings']")).click();
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Tenants']"))).getText();
         textElement = navegador.findElement(By.xpath("//div[text()='Tenants']")).getText();
         assertEquals("Tenants", textElement);
         Thread.sleep(500);
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Companies']"))).getText();
         textElement = navegador.findElement(By.xpath("//div[text()='Companies']")).getText();
         assertEquals("Companies", textElement);
         Thread.sleep(500);
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Groups']"))).getText();
         textElement = navegador.findElement(By.xpath("//div[text()='Groups']")).getText();
         assertEquals("Groups", textElement);
         Thread.sleep(500);
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Users']"))).getText();
         textElement = navegador.findElement(By.xpath("//div[text()='Users']")).getText();
         assertEquals("Users", textElement);
         Thread.sleep(500);
 
 
-        System.out.println("<OK>");
+        System.out.println("> OK ");
         Thread.sleep(1000);
 
-        System.out.println("Logout Sistema");
+        System.out.println("========== QA - Logout Sistema ==========");
         navegador.findElement(By.xpath("//span[text()='s']")).click();
         Thread.sleep(1000);
         navegador.findElement(By.xpath("//div[text()='Logout']")).click();
-        navegador.quit();
     }
 
 
     @Test
-    public void QA___ADMIN_FULL() throws InterruptedException {
+    public void QA___CADASTRO_ADMIN_FULL() throws InterruptedException {
 
         navegador.get("http://qa-webapp.vati.rocks/");
         String actualTitle = navegador.getTitle();
         String expectedTitle = "jw2_web_2app";
         //Thread.sleep(500);
-        System.out.println("ADMIN");
-        System.out.println("Acessar com privilégios ADMIN usuário senelinum@protonmail.com");
+        System.out.println("=== QA - Acessando como ADMIN ===");
+        System.out.println("========== QA - Acessar com privilégios ADMIN usuário senelinum@protonmail.com ==========");
 
         navegador.findElement(xpath("//input[contains(@type,'email')]")).sendKeys("senelinum@protonmail.com");
         navegador.findElement(xpath("//input[contains(@type,'password')]")).sendKeys("1234");
         //Thread.sleep(500);
         navegador.findElement(xpath("//span[@class='v-btn__content'][contains(.,'Login')]")).click();
-        System.out.println("<OK>");
+        System.out.println("> OK ");
 
         Thread.sleep(1000);
 
@@ -353,7 +383,7 @@ public class TasksTest {
 ////////////////////COMPANIES-VATI-INATIVAR/////////////////////
 
         Thread.sleep(3000);
-        System.out.println("Inativar Companies padrão do sistema");
+        System.out.println("========== QA - Inativar Companies padrão do sistema ==========");
         //navegador.findElement(By.xpath("(//div[contains(.,'Core Settings')])[6]"));
 
         WebDriverWait wait = new WebDriverWait(navegador, 10);
@@ -369,18 +399,19 @@ public class TasksTest {
         Thread.sleep(1000);
         navegador.findElement(By.xpath("//span[text()=' Save ']")).click();
         Thread.sleep(1000);
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
         textElement = navegador.findElement(className("v-snack__content")).getText();
+        //assertEquals("Access Denied.", textElement);
         assertEquals("Company edited", textElement);
         navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
         Thread.sleep(3000);
-        System.out.println("<OK>");
+        System.out.println("> OK ");
 
 
 ///////////////////COMPANIE_BCA//////////////////////
 
-        System.out.println("Cadastrar Companie BCA");
+        System.out.println("========== QA - Cadastrar Companie BCA ==========");
         navegador.findElement(By.xpath("//div[@class='v-list-item__title'][contains(.,'Core Settings')]")).click();
         navegador.findElement(By.xpath("//div[@class='v-list-item__title'][contains(.,'Companies')]")).click();
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Create company')]")).click();
@@ -395,17 +426,17 @@ public class TasksTest {
         navegador.findElement(By.xpath("//div[@class='v-list-item__title'][contains(.,'Vati')]")).click();
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
         textElement = navegador.findElement(className("v-snack__content")).getText();
         assertEquals("Company created", textElement);
         navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
         Thread.sleep(1000);
-        System.out.println("<OK>");
+        System.out.println("> OK ");
 
 ////////////////////COMPANIES-VL VATICANO////////////////////
 
-        System.out.println("Cadastrar Companie VL VATICANO");
+        System.out.println("========== QA - Cadastrar Companie VL VATICANO ==========");
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Create company')]")).click();
         Thread.sleep(500);
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
@@ -418,18 +449,18 @@ public class TasksTest {
         navegador.findElement(By.xpath("//div[@class='v-list-item__title'][contains(.,'Vati')]")).click();
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
         textElement = navegador.findElement(className("v-snack__content")).getText();
         assertEquals("Company created", textElement);
         navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
         Thread.sleep(3000);
-        System.out.println("<OK>");
+        System.out.println("> OK ");
 
 
 ////////////////////CREATE NEW GROUPS_PRESIDENCIA////////////////////
 
-        System.out.println("Cadastrar Grupo_Presidência | Tenant VATI");
+        System.out.println("========== QA - Cadastrar Grupo_Presidência | Tenant VATI ==========");
         navegador.findElement(xpath("//div[@class='v-list-item__title'][contains(.,'Core Settings')]")).click();
         navegador.findElement(By.xpath("//div[@class='v-list-item__title'][contains(.,'Groups')]")).click();
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Create group')]")).click();
@@ -464,13 +495,13 @@ public class TasksTest {
 
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
         textElement = navegador.findElement(className("v-snack__content")).getText();
         assertEquals("Group created", textElement);
         navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
         Thread.sleep(2000);
-        System.out.println("<OK>");
+        System.out.println("> OK ");
 
         navegador.findElement(By.xpath("//div[text()='Vati']")).click();
         Thread.sleep(1000);
@@ -482,7 +513,7 @@ public class TasksTest {
 
 ////////////////////CREATE NEW GRUPO COMERCIAL GESTAO////////////////////
 
-        System.out.println("Cadastrar Grupo Comercial Gestão | Tenant VATI");
+        System.out.println("========== QA - Cadastrar Grupo Comercial Gestão | Tenant VATI ==========");
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Create group')]")).click();
         Thread.sleep(500);
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
@@ -517,18 +548,18 @@ public class TasksTest {
 
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
         textElement = navegador.findElement(className("v-snack__content")).getText();
         assertEquals("Group created", textElement);
         navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
         Thread.sleep(2000);
-        System.out.println("<OK>");
+        System.out.println("> OK ");
 
 
         ////////////////////CREATE NEW GRUPO Grupo Comercial Operação////////////////////
 
-        System.out.println("Cadastrar Grupo Comercial Operação | Tenant VATI");
+        System.out.println("========== QA - Cadastrar Grupo Comercial Operação | Tenant VATI ==========");
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Create group')]")).click();
         Thread.sleep(500);
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
@@ -561,18 +592,18 @@ public class TasksTest {
 
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
         textElement = navegador.findElement(className("v-snack__content")).getText();
         assertEquals("Group created", textElement);
         navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
         Thread.sleep(2000);
-        System.out.println("<OK>");
+        System.out.println("> OK ");
 
 
         ////////////////////CREATE NEW GRUPO Grupo Grupo RH Gestão////////////////////
 
-        System.out.println("Cadastrar Grupo RH Gestão | Tenant VATI");
+        System.out.println("========== QA - Cadastrar Grupo RH Gestão | Tenant VATI ==========");
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Create group')]")).click();
         Thread.sleep(500);
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
@@ -605,18 +636,18 @@ public class TasksTest {
 
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
         textElement = navegador.findElement(className("v-snack__content")).getText();
         assertEquals("Group created", textElement);
         navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
         Thread.sleep(2000);
-        System.out.println("<OK>");
+        System.out.println("> OK ");
 
 
         ////////////////////CREATE NEW GRUPO Grupo RH Operação////////////////////
 
-        System.out.println("Cadastrar Grupo RH Operação | Tenant VATI");
+        System.out.println("========== QA - Cadastrar Grupo RH Operação | Tenant VATI ==========");
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Create group')]")).click();
         Thread.sleep(500);
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
@@ -649,18 +680,18 @@ public class TasksTest {
 
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
         textElement = navegador.findElement(className("v-snack__content")).getText();
         assertEquals("Group created", textElement);
         navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
         Thread.sleep(2000);
-        System.out.println("<OK>");
+        System.out.println("> OK ");
 
 
         ////////////////////CREATE NEW GRUPO Grupo Grupo Financeiro////////////////////
 
-        System.out.println("Cadastrar Grupo Financeiro | Tenant VATI");
+        System.out.println("========== QA - Cadastrar Grupo Financeiro | Tenant VATI ==========");
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Create group')]")).click();
         Thread.sleep(500);
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
@@ -693,18 +724,18 @@ public class TasksTest {
 
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
         textElement = navegador.findElement(className("v-snack__content")).getText();
         assertEquals("Group created", textElement);
         navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
         Thread.sleep(2000);
-        System.out.println("<OK>");
+        System.out.println("> OK ");
 
 
         ////////////////////CREATE NEW GRUPO Grupo Produção Gestão////////////////////
 
-        System.out.println("Cadastrar Grupo Produção Gestão | Tenant VATI");
+        System.out.println("========== QA - Cadastrar Grupo Produção Gestão | Tenant VATI ==========");
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Create group')]")).click();
         Thread.sleep(500);
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
@@ -737,18 +768,18 @@ public class TasksTest {
 
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
         textElement = navegador.findElement(className("v-snack__content")).getText();
         assertEquals("Group created", textElement);
         navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
         Thread.sleep(2000);
-        System.out.println("<OK>");
+        System.out.println("> OK ");
 
 
         ////////////////////CREATE NEW GRUPO Grupo Produção Operação Volkswagen////////////////////
 
-        System.out.println("Cadastrar Grupo Produção Operação Volkswagen | Tenant VATI");
+        System.out.println("========== QA - Cadastrar Grupo Produção Operação Volkswagen | Tenant VATI ==========");
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Create group')]")).click();
         Thread.sleep(500);
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
@@ -783,17 +814,17 @@ public class TasksTest {
 
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
         textElement = navegador.findElement(className("v-snack__content")).getText();
         assertEquals("Group created", textElement);
         navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
         Thread.sleep(2000);
-        System.out.println("<OK>");
+        System.out.println("> OK ");
 
 
         ////////////////////CREATE NEW Grupo Produção Operação Vivo////////////////////
-        System.out.println("Cadastrar Grupo Produção Operação Vivo | Tenant VATI");
+        System.out.println("========== QA - Cadastrar Grupo Produção Operação Vivo | Tenant VATI ==========");
         Thread.sleep(1000);
         ((JavascriptExecutor) navegador)
                 .executeScript("window.scrollBy(0,-250)");
@@ -831,32 +862,31 @@ public class TasksTest {
 
         navegador.findElement(By.xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
 
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
         textElement = navegador.findElement(className("v-snack__content")).getText();
         assertEquals("Group created", textElement);
         navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
         Thread.sleep(2000);
-        System.out.println("<OK>");
+        System.out.println("> OK ");
         Thread.sleep(2000);
 
         navegador.findElement(By.xpath("//span[text()='s']")).click();
         Thread.sleep(1000);
         navegador.findElement(By.xpath("//div[text()='Logout']")).click();
-        System.out.println("Logout");
-        navegador.quit();
+        System.out.println("========== QA - Logout ==========");
 
     }
 
 
     @Test
-    public void QA___INSERT_USER_ADMIN_TENANT() throws InterruptedException {
+    public void QA___INSERIR_USER_ADMIN_TENANT() throws InterruptedException {
 
         navegador.get("http://qa-webapp.vati.rocks/");
         String actualTitle = navegador.getTitle();
         String expectedTitle = "jw2_web_2app";
         //Thread.sleep(500);
-        System.out.println("Acessando com login senelinum@protonmail.com");
+        System.out.println("========== QA - Acessando com login senelinum@protonmail.com ==========");
 
         navegador.findElement(xpath("//input[contains(@type,'email')]")).sendKeys("senelinum@protonmail.com");
         navegador.findElement(xpath("//input[contains(@type,'password')]")).sendKeys("1234");
@@ -865,12 +895,12 @@ public class TasksTest {
 
         Thread.sleep(1000);
         //navegador.navigate().refresh();
-        System.out.println("<OK>");
+        System.out.println("> OK ");
 
         /////INSERT_USER_ADMIN_IN_TENANT_VATI
 
         Thread.sleep(2000);
-        System.out.println("Adicionar usuário admin@email.com ao Tenant VATI");
+        System.out.println("========== QA - Adicionar usuário admin@email.com ao Tenant VATI ==========");
         Thread.sleep(1000);
 
 
@@ -888,18 +918,224 @@ public class TasksTest {
         Thread.sleep(1000);
         navegador.findElement(xpath("//textarea[contains(@autocomplete,'email')]")).sendKeys("admin@email.com");
         navegador.findElement(xpath("//span[@class='v-btn__content'][contains(.,'Save')]")).click();
-        wait = new WebDriverWait(navegador, 10);
+        wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
         textElement = navegador.findElement(className("v-snack__content")).getText();
         Assert.assertEquals("User(s) added", textElement);
         navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
         Thread.sleep(1000);
-        System.out.println("<OK>");
+        System.out.println("> OK ");
         navegador.findElement(By.xpath("//span[text()='s']")).click();
         Thread.sleep(1000);
         navegador.findElement(By.xpath("//div[text()='Logout']")).click();
-        System.out.println("Logout");
-        navegador.quit();
+        System.out.println("========== QA - Logout ==========");
+    }
+
+    @Test
+    public void QA___CADASTRO_CONTENT() throws InterruptedException {
+
+        navegador.get("http://qa-webapp.vati.rocks/");
+        String actualTitle = navegador.getTitle();
+        String expectedTitle = "jw2_web_2app";
+        //Thread.sleep(500);
+        System.out.println("========== QA - Acessando com login senelinum@protonmail.com ==========");
+
+        navegador.findElement(xpath("//input[contains(@type,'email')]")).sendKeys("senelinum@protonmail.com");
+        navegador.findElement(xpath("//input[contains(@type,'password')]")).sendKeys("1234");
+        //Thread.sleep(500);
+        navegador.findElement(xpath("//span[@class='v-btn__content'][contains(.,'Login')]")).click();
+
+        Thread.sleep(1000);
+        //navegador.navigate().refresh();
+        System.out.println("> OK ");
+
+        /////// CONTENTS ///////
+
+        Thread.sleep(2000);
+        System.out.println("========== QA - Acessar Content ==========");
+        Thread.sleep(1000);
+
+        System.out.println("========== QA - Clicar botão lateral esquerdo Content ==========");
+        navegador.findElement(By.xpath("//div[text()='Contents']")).click();
+        System.out.println("> OK ");
+
+        Thread.sleep(1000);
+        System.out.println("========== QA - Clicar em Content Settings ==========");
+        navegador.findElement(By.xpath("//span[text()=' Content Settings ']")).click();
+        Thread.sleep(1000);
+
+        /////// ADD FILE SERVERS ///////
+
+        System.out.println("========== QA - Clicar em File Servers ==========");
+        navegador.findElement(By.xpath("//div[text()='File Servers']")).click();
+        System.out.println("> OK ");
+        Thread.sleep(1000);
+
+        System.out.println("========== QA - Clicar em Create File Server ==========");
+        navegador.findElement(By.xpath("//span[text()=' Create File Server ']")).click();
+        System.out.println("> OK ");
+        Thread.sleep(2000);
+
+        System.out.println("========== QA - Validacao de todos os campos obrigatorios  ==========");
+        navegador.findElement(By.xpath("//span[text()=' Save ']")).click();
+
+        System.out.println("========== QA - Inserir  [Label]: File Server Geral ==========");
+        navegador.findElement(By.xpath("(//label[text()='Label']/following::input)[1]")).sendKeys("File Server Geral");
+        System.out.println("> OK ");
+        Thread.sleep(500);
+
+        System.out.println("========== QA - Inserir [URL]: 172.17.1.152 ==========");
+        navegador.findElement(By.xpath("(//label[text()='Url']/following::input)[1]")).sendKeys("172.17.1.152");
+        System.out.println("> OK ");
+        Thread.sleep(500);
+
+        System.out.println("========== QA - Selecionar [Type]: Native  ==========");
+        navegador.findElement(By.xpath("(//div[@class='v-input__icon v-input__icon--append']//i)[2]")).click();
+        System.out.println("> OK ");
+        Thread.sleep(500);
+
+        navegador.findElement(By.xpath("//div[text()='Native']")).click();
+        Thread.sleep(500);
+
+        System.out.println("========== QA - Selecionar [Tenant]: Vati  ==========");
+        navegador.findElement(By.xpath("(//div[@class='v-input__icon v-input__icon--append']//i)[3]")).click();
+        System.out.println("> OK ");
+        Thread.sleep(500);
+        navegador.findElement(By.xpath("//div[text()='Vati']")).click();
+        //navegador.findElement(By.xpath("//div[text()='Tenant']")).click();
+
+        Thread.sleep(500);
+
+        System.out.println("========== QA - Salvar  ==========");
+        navegador.findElement(By.xpath("//span[text()=' Save ']")).click();
+        System.out.println("> OK ");
+        //navegador.findElement(By.xpath("(//span[text()=' Close '])[2]")).click();
+
+        wait = new WebDriverWait(navegador, 29);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
+        textElement = navegador.findElement(className("v-snack__content")).getText();
+        assertEquals("File Server Created", textElement);
+        navegador.findElement(By.xpath("(//span[text()=' Close '])[1]")).click();
+        Thread.sleep(1000);
+        System.out.println("> OK ");
+
+        System.out.println("========== QA - Clicar no Breadcrumbs ==========");
+        navegador.findElement(By.linkText("Content Settings")).click();
+        Thread.sleep(1000);
+        //navegador.findElement(By.xpath("//div[text()='Contents']")).click();
+        //Thread.sleep(1000);
+        //navegador.findElement(By.xpath("//span[text()=' Content Settings ']")).click();
+        //Thread.sleep(1000);
+        //navegador.findElement(By.xpath("//div[text()='Repositories']")).click();
+
+        /////// ADD REPOSITORIES ///////
+
+        System.out.println("========== QA - Clicar em Repositories  ==========");
+        navegador.findElement(By.xpath("//div[text()='Repositories']")).click();
+        System.out.println("> OK ");
+        Thread.sleep(1000);
+
+        System.out.println("========== QA - Clicar em Create Repository ==========");
+        navegador.findElement(By.xpath("//span[text()=' Create Repository ']")).click();
+        System.out.println("> OK ");
+
+        System.out.println("========== QA - Validacao de todos os campos obrigatorios  ==========");
+        navegador.findElement(By.xpath("//span[text()=' Save ']")).click();
+        System.out.println("> OK ");
+
+        ////// ADMINISTRATIVO /////
+
+        System.out.println("========== QA - Inserir [Title]: Administrativo ==========");
+        navegador.findElement(By.xpath("(//label[text()='Title']/following::input)[1]")).sendKeys("Administrativo");
+        System.out.println("> OK ");
+        Thread.sleep(1000);
+
+        System.out.println("========== QA - Inserir [Folder Name]: Administrativo ==========");
+        navegador.findElement(By.xpath("(//label[text()='Folder Name']/following::input)[1]")).sendKeys("Administrativo");
+        System.out.println("> OK ");
+        Thread.sleep(1000);
+
+        System.out.println("========== QA - Selecionar [File Server]: File Server Geral ==========");
+        navegador.findElement(By.xpath("(//div[@class='v-input__icon v-input__icon--append']//i)[2]")).click();
+        System.out.println("> OK ");
+        Thread.sleep(1000);
+
+        navegador.findElement(By.xpath("(//div[text()='File Server Geral'])[1]")).click();
+        System.out.println("> OK ");
+        Thread.sleep(1000);
+
+        navegador.findElement(By.xpath("//span[text()=' Save ']")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
+        textElement = navegador.findElement(className("v-snack__content")).getText();
+        Assert.assertEquals("Repository Created", textElement);
+        navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
+        Thread.sleep(2000);
+        System.out.println("> OK ");
+
+        ////// COMERCIAL /////
+
+        navegador.findElement(By.xpath("//span[text()=' Create Repository ']")).click();
+        System.out.println("========== QA - Inserir [Title]: Comercial ==========");
+        navegador.findElement(By.xpath("(//label[text()='Title']/following::input)[1]")).sendKeys("Comercial");
+        System.out.println("> OK ");
+        Thread.sleep(1000);
+
+        System.out.println("========== QA - Inserir [Folder Name]: Comercial ==========");
+        navegador.findElement(By.xpath("(//label[text()='Folder Name']/following::input)[1]")).sendKeys("Comercial");
+        System.out.println("> OK ");
+        Thread.sleep(1000);
+
+        System.out.println("========== QA - Selecionar [File Server]: File Server Geral ==========");
+        navegador.findElement(By.xpath("(//div[@class='v-input__icon v-input__icon--append']//i)[2]")).click();
+        System.out.println("> OK ");
+        Thread.sleep(1000);
+
+        navegador.findElement(By.xpath("(//div[text()='File Server Geral'])[1]")).click();
+        System.out.println("> OK ");
+        Thread.sleep(1000);
+
+        navegador.findElement(By.xpath("//span[text()=' Save ']")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
+        textElement = navegador.findElement(className("v-snack__content")).getText();
+        Assert.assertEquals("Repository Created", textElement);
+        navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
+        System.out.println("> OK ");
+        Thread.sleep(2000);
+
+        ////// PRODUCAO /////
+
+        navegador.findElement(By.xpath("//span[text()=' Create Repository ']")).click();
+        System.out.println("========== QA - Inserir [Title]: Producao ==========");
+        navegador.findElement(By.xpath("(//label[text()='Title']/following::input)[1]")).sendKeys("Producao");
+        System.out.println("> OK ");
+        Thread.sleep(1000);
+
+        System.out.println("========== QA - Inserir [Folder Name]: Producao ==========");
+        navegador.findElement(By.xpath("(//label[text()='Folder Name']/following::input)[1]")).sendKeys("Producao");
+        System.out.println("> OK ");
+        Thread.sleep(1000);
+
+        System.out.println("========== QA - Selecionar [File Server]: File Server Geral ==========");
+        navegador.findElement(By.xpath("(//div[@class='v-input__icon v-input__icon--append']//i)[2]")).click();
+        System.out.println("> OK ");
+        Thread.sleep(1000);
+
+        navegador.findElement(By.xpath("//div[text()='File Server Geral']")).click();
+        System.out.println("> OK ");
+        Thread.sleep(1000);
+
+        navegador.findElement(By.xpath("//span[text()=' Save ']")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(className("v-snack__content")));
+        textElement = navegador.findElement(className("v-snack__content")).getText();
+        Assert.assertEquals("Repository Created", textElement);
+        navegador.findElement(xpath("(//span[text()=' Close '])[1]")).click();
+        Thread.sleep(2000);
+        System.out.println("> OK ");
+
+        //navegador.findElement(By.xpath("//span[text()='s']")).click();
+        //Thread.sleep(1000);
+        //navegador.findElement(By.xpath("//div[text()='Logout']")).click();
+        //System.out.println("========== QA - Logout ==========");
     }
 
     @Test
@@ -921,12 +1157,12 @@ public class TasksTest {
         //assertEquals("Home", textElement);
         Thread.sleep(1000);
         //navegador.navigate().refresh();
-        System.out.println("========== ST - Acessando CDP ==========");
+        System.out.println("========== QA - Acessando CDP ==========");
         Thread.sleep(1000);
         navegador.findElement(By.xpath("//div[text()='CDP']")).click();
         Thread.sleep(1000);
         navegador.findElement(By.xpath("//span[text()=' CDP Settings ']")).click();
-        System.out.println("========== ST - Listar |Customer Properties|Unomi Config|Unomi Console|Attribute Mapping|Profile View ==========");
+        System.out.println("========== QA - Listar |Customer Properties|Unomi Config|Unomi Console|Attribute Mapping|Profile View ==========");
         wait = new WebDriverWait(navegador, 29);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Customer Properties']"))).getText();
         textElement = navegador.findElement(By.xpath("//div[text()='Customer Properties']")).getText();
@@ -959,7 +1195,7 @@ public class TasksTest {
 
         //////CUSTOMER PROPERTIES///////
 
-        System.out.println("========== ST - Cadastrar Customer Propertis ==========");
+        System.out.println("========== QA - Cadastrar Customer Propertis ==========");
         navegador.findElement(By.xpath("//div[text()='Customer Properties']")).click();
         Thread.sleep(500);
         navegador.findElement(By.xpath("//span[text()=' Create New ']")).click();
@@ -990,7 +1226,7 @@ public class TasksTest {
 
         //////UNOMI CONFIG/////
 
-        System.out.println("========== ST - Cadastrar Unomi Config ==========");
+        System.out.println("========== QA - Cadastrar Unomi Config ==========");
         navegador.findElement(By.xpath("//div[text()='Unomi Config']")).click();
         Thread.sleep(500);
         navegador.findElement(By.xpath("//span[text()=' Create New ']")).click();
@@ -1082,12 +1318,12 @@ public class TasksTest {
 
         //////UNOMI CONSOLE/////
 
-        System.out.println("========== ST - Acessando Unomi Console ==========");
+        System.out.println("========== QA - Acessando Unomi Console ==========");
         navegador.findElement(By.xpath("//div[text()='Unomi Console']")).click();
         Thread.sleep(500);
         System.out.println("> OK ");
         Thread.sleep(1000);
-        System.out.println("========== ST - Executar comando profile-list no Unomi Console ==========");
+        System.out.println("========== QA - Executar comando profile-list no Unomi Console ==========");
         navegador.findElement(By.tagName("input")).sendKeys("profile-list");
         Thread.sleep(500);
 
@@ -1109,7 +1345,7 @@ public class TasksTest {
 
         //////ATTRIBUTE MAPPING /////
 
-        System.out.println("========== ST - Cadastrar Attribute Mapping ==========");
+        System.out.println("========== QA - Cadastrar Attribute Mapping ==========");
         navegador.findElement(By.xpath("//div[text()='Attribute Mapping']")).click();
         navegador.findElement(By.xpath("//span[text()=' Create New ']")).click();
         Thread.sleep(500);
@@ -1153,7 +1389,7 @@ public class TasksTest {
 
         //////PROFILE VIEW /////
 
-        System.out.println("========== ST - Cadastrar Profile View ==========");
+        System.out.println("========== QA - Cadastrar Profile View ==========");
         navegador.findElement(By.xpath("//div[text()='Profile View']")).click();
         navegador.findElement(By.xpath("//span[text()=' Create New ']")).click();
         Thread.sleep(500);
@@ -1249,7 +1485,7 @@ public class TasksTest {
         navegador.findElement(By.xpath("//button[contains(@class,'v-icon notranslate')]")).click();
         Thread.sleep(500);
 
-        System.out.println("========== ST - Realizar Download | Profile View Export ==========");
+        System.out.println("========== QA - Realizar Download | Profile View Export ==========");
         navegador.findElement(By.xpath("//span[text()=' download ']")).click();
         Thread.sleep(500);
         System.out.println("> OK ");
@@ -1268,7 +1504,7 @@ public class TasksTest {
 
         navegador.findElement(By.xpath("//div[@class='v-card__text']//code[1]")).click();
         Thread.sleep(500);
-        System.out.println("========== ST - Visualizar informacoes cadastradas no Customer Propertis |Snippet ==========");
+        System.out.println("========== QA - Visualizar informacoes cadastradas no Customer Propertis |Snippet ==========");
 
         navegador.findElement(By.xpath("(//span[text()=' Close '])[2]")).click();
         Thread.sleep(500);
@@ -1278,6 +1514,6 @@ public class TasksTest {
         navegador.findElement(By.xpath("(//div[@class='v-responsive__content'])[2]")).click();
         Thread.sleep(1000);
         navegador.findElement(By.xpath("//div[text()='Logout']")).click();
-        System.out.println("========== ST - Logout ==========");
+        System.out.println("========== QA - Logout ==========");
     }
 }
