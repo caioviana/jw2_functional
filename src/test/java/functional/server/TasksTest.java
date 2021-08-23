@@ -49,7 +49,7 @@ public class TasksTest {
     }
 
     @Test
-    public void QA___D___MASTER_FULL() throws InterruptedException {
+    public void QA___MASTER_FULL() throws InterruptedException {
 
         navegador.get("http://qa-webapp.vati.rocks/");
         String actualTitle = navegador.getTitle();
@@ -187,7 +187,7 @@ public class TasksTest {
 
 
     @Test
-    public void QA___E___ACESSAR_EMAIL() throws InterruptedException {
+    public void QA___ACESSAR_EMAIL() throws InterruptedException {
         //////_ACESSAR_EMAIL_RESGATAR_SENHA_DE_ACESSO////////
 
 /*        System.out.println("Acessar email resgatar senha enviada");
@@ -332,7 +332,7 @@ public class TasksTest {
 
 
     @Test
-    public void QA___F___ADMIN_FULL() throws InterruptedException {
+    public void QA___ADMIN_FULL() throws InterruptedException {
 
         navegador.get("http://qa-webapp.vati.rocks/");
         String actualTitle = navegador.getTitle();
@@ -850,7 +850,7 @@ public class TasksTest {
 
 
     @Test
-    public void QA___G___INSERT_USER_ADMIN_TENANT() throws InterruptedException {
+    public void QA___INSERT_USER_ADMIN_TENANT() throws InterruptedException {
 
         navegador.get("http://qa-webapp.vati.rocks/");
         String actualTitle = navegador.getTitle();
